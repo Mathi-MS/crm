@@ -1,5 +1,5 @@
 // Small fetch wrapper: adds the login token and logs out on 401.
-const BASE = import.meta.env.VITE_API_URL ?? ''
+const BASE =  'https://crm-server-v8ck.onrender.com'
 
 export async function api<T = unknown>(path: string, options: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem('token')
@@ -16,7 +16,7 @@ export async function api<T = unknown>(path: string, options: RequestInit = {}):
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     localStorage.removeItem('crm-prefs')
-    window.location.href = '/login'
+    window.location.hash = '/'
   }
   if (!res.ok) throw new Error((data as { message?: string }).message || 'Request failed.')
   return data as T
