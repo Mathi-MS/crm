@@ -16,7 +16,7 @@ export async function api<T = unknown>(path: string, options: RequestInit = {}):
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     localStorage.removeItem('crm-prefs')
-    window.location.hash = '/'
+    window.location.hash = '#/login'
   }
   if (!res.ok) throw new Error((data as { message?: string }).message || 'Request failed.')
   return data as T
