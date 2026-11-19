@@ -11,7 +11,7 @@ import { adminRoutes } from './admin.js'
 import { Role, User, publicUser } from './models.js'
 
 const PORT = process.env.PORT || 4000
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173'
+const CLIENT_ORIGIN = (process.env.CLIENT_ORIGIN || 'http://localhost:5173').split(',').map(s => s.trim())
 const JWT_EXPIRES = process.env.JWT_EXPIRES || '8h'
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/crm'
 

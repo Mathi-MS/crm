@@ -1,7 +1,9 @@
 // Small fetch wrapper: adds the login token and logs out on 401.
+const BASE = import.meta.env.VITE_API_URL ?? ''
+
 export async function api<T = unknown>(path: string, options: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem('token')
-  const res = await fetch(path, {
+  const res = await fetch(BASE + path, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
