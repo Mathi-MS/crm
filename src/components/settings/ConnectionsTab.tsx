@@ -102,7 +102,8 @@ function MetaCard() {
     }
   }
 
-  const webhookUrl = `${window.location.origin}/api/webhooks/meta`
+  const BASE = (window as any).__API_URL__ || import.meta.env.VITE_API_URL || ''
+  const webhookUrl = `${BASE}/api/webhooks/meta`
   const connected = !!status?.connected
   const showForm = open && !!status
 
@@ -218,7 +219,8 @@ function GoogleCard() {
   }
 
   const connected = !!status?.connected
-  const webhookUrl = `${window.location.origin}/api/webhooks/google`
+  const BASE = (window as any).__API_URL__ || import.meta.env.VITE_API_URL || ''
+  const webhookUrl = `${BASE}/api/webhooks/google`
 
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">

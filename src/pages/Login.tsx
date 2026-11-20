@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { setMe } from '../auth'
+import { api } from '../api'
 
 function Illustration() {
   return (
@@ -59,21 +60,15 @@ export default function Login() {
     setError('')
     setBusy(true)
     try {
-      const res = await fetch('/api/auth/login', {
+      const data = await api<{ token: string; user: any }>('/api/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) {
-        setError(data.message || 'Login failed.')
-        return
-      }
       localStorage.setItem('token', data.token)
       setMe(data.user)
       navigate('/', { replace: true })
-    } catch {
-      setError('Cannot reach the server. Is the backend running?')
+    } catch (err: any) {
+      setError(err.message || 'Cannot reach the server. Is the backend running?')
     } finally {
       setBusy(false)
     }
